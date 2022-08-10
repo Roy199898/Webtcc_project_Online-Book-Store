@@ -12,7 +12,7 @@ if (!isset($_SESSION['username'])) {
   
 }else{
   echo '<a href="./welcome.php">Dashboard</a>';
-  echo '<a href="./view/partials/logout.php">Logout</a>';
+  echo '<a href="/mid/view/partials/logout.php">Logout</a>';
   
 }
 ?>

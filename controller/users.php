@@ -1,14 +1,73 @@
 <?php
-if (session_id() === '') {
-    session_start();
+
+
+function signUp($data){
+
+    $connection = new db();
+    $conn=$connection->OpenCon();
+
+    $name=$data['name'];
+    $username=$data['username'];
+    $email=$data['email'];
+    $password=$data['password'];
+    $address=$data['address'];
+
+    $phone=$data['phoneno'];
+
+
+     $sql = "INSERT INTO users (name,username, email, password,address,phoneno,type) VALUES('".$name."', '".$username."', '".$email."', '".$password."', '".$address."', '".$phone."','user')";
+
+    if ($conn->query($sql) === TRUE) {
+        $_SESSION['signup_msg']='User added successfully.';
+        $conn -> close();
+        return true;
+    } else {
+        echo $sql;
+        $conn -> close();
+ return false;
+
+    }
+
+
+
 }
 
 
-function getProducts()
+function addSeller($data){
+
+    $connection = new db();
+    $conn=$connection->OpenCon();
+
+    $name=$data['name'];
+    $username=$data['username'];
+    $email=$data['email'];
+    $password=$data['password'];
+    $address=$data['address'];
+
+    $phone=$data['phoneno'];
+
+
+     $sql = "INSERT INTO users (name,username, email, password,address,phoneno,type) VALUES('".$name."', '".$username."', '".$email."', '".$password."', '".$address."', '".$phone."','seller')";
+
+    if ($conn->query($sql) === TRUE) {
+        $_SESSION['signup_msg']='User added successfully.';
+        $conn -> close();
+        return true;
+    } else {
+        echo $sql;
+        $conn -> close();
+ return false;
+
+    }
+
+
+
+}
+function getSellers()
 {
     $connection = new db();
     $conn=$connection->OpenCon();
-    $result = $conn->query("SELECT * FROM books");
+    $result = $conn->query("SELECT * FROM users WHERE type='seller'");
     return $result;
     //return json_decode(file_get_contents(__DIR__ .'../../../products.json'), true);
 }
@@ -139,3 +198,22 @@ function validateProduct($product, &$errors)
 
     return $isValid;
 }
+
+function deleteSeller($id)
+{
+
+    $connection = new db();
+    $conn=$connection->OpenCon();
+
+    $sql = "DELETE FROM users WHERE id='$id'";
+
+    if ($conn->query($sql) === TRUE) {
+        $_SESSION['delete_msg']='seller` deleted successfully.';
+       return true;
+    } else {
+        return false;
+
+    }
+
+}
+
